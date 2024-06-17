@@ -2,6 +2,7 @@ import networkx as nx
 import numpy as np
 import matplotlib as plt
 
+
 nbNodes = int(input('Nombre de nodes:  '))
 nbConnections = int(input('Nombre de connections:  '))
 
