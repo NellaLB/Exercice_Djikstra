@@ -10,8 +10,8 @@ def visitNode():
     for idDis in range(len(distances)):
         if distances[idDis] == min(distances) and isCompletelyVisited[idDis] == False:
             idLowestDistance = idDis
-            print(idLowestDistance)
-            break
+            startingNode = chr(idDis + ord('A'))
+            print(startingNode)
     #   2. Access its neighbours nodes:
     #       a. If neighbour node already visited but newdistance > currentdistance : pass
     #       b. Else : node + edge
