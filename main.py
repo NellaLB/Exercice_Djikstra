@@ -15,7 +15,9 @@ def visitNode():
     #   2. Access its neighbours nodes:
     #       a. If neighbour node already visited but newdistance > currentdistance : pass
     #       b. Else : node + edge
-    #   3. Loop
+    listNeighboursId = list(zip(*np.where(connections == startingNode)))
+    print(listNeighboursId)
+
 
 def main():
     nbNodes , nbConnections = map(int, input('Nombre de nodes, nombres de connections:   ').split(','))
