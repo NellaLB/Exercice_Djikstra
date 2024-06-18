@@ -11,16 +11,15 @@ def visitNode():
             startingNode = chr(idStartingPoint + ord('A'))
     #   2. Access its neighbours nodes:
     listNeighboursId = list(zip(*np.where(connections == startingNode)))
-    for x,y in listNeighboursId:
-        if x == 0:
+    for (x,y) in listNeighboursId:
+        if y == 0:
             neighbour = connections[x,1]
         else:
             neighbour = connections[x,0]
         edge = int(connections[x,2])
         idNeighbour = ord(neighbour) - ord('A')
-        newDistance = edge + distances[idStartingPoint]
-        if (isVisited[idNeighbour]==False) and (newDistance < distances[idNeighbour]):
-            distances[idNeighbour] = newDistance
+        if  edge + distances[idStartingPoint] < distances[idNeighbour]:
+            distances[idNeighbour] = edge + distances[idStartingPoint]
     isVisited[idStartingPoint] = True
     return distances
 
