@@ -11,8 +11,6 @@ def visitNode():
             startingNode = chr(idStartingPoint + ord('A'))
             print(startingNode)
     #   2. Access its neighbours nodes:
-    #       a. If neighbour node already visited but newdistance > currentdistance : pass
-    #       b. Else : node + edge
     listNeighboursId = list(zip(*np.where(connections == startingNode)))
     for x,y in listNeighboursId:
         if x == 0:
@@ -43,5 +41,9 @@ def main():
 
     while np.inf in distances:
         visitNode()
+    
+    for x in range(len(distances)):
+        node = chr(x + ord('A'))
+        print(startingNode, 'to', node, ':' x)
 
 main()
