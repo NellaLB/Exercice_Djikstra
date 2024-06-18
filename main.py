@@ -6,8 +6,13 @@ import matplotlib.pyplot as plt
 #Djikstra Algo
 def visitNode():
     #   1. Node with lowest distance as starting point:
+    distancesNotVisited=[np.inf]*(len(distances))
+    for indx in range(len(distances)):
+        if isVisited[indx] == False:
+            distancesNotVisited[indx] = distances[indx]
+
     for idStartingPoint in range(len(distances)):
-        if distances[idStartingPoint] == min(distances) and isVisited[idStartingPoint] == False:
+        if distancesNotVisited[idStartingPoint] == min(distancesNotVisited):
             startingNode = chr(idStartingPoint + ord('A'))
     #   2. Access its neighbours nodes:
     listNeighboursId = list(zip(*np.where(connections == startingNode)))
@@ -39,6 +44,7 @@ def main():
 
     while np.inf in distances:
         distances = visitNode()
+        print(distances)
     
     for x in range(len(distances)):
         node = chr(x + ord('A'))
