@@ -9,7 +9,6 @@ def visitNode():
     for idStartingPoint in range(len(distances)):
         if distances[idStartingPoint] == min(distances) and isVisited[idStartingPoint] == False:
             startingNode = chr(idStartingPoint + ord('A'))
-            print(startingNode)
     #   2. Access its neighbours nodes:
     listNeighboursId = list(zip(*np.where(connections == startingNode)))
     for x,y in listNeighboursId:
@@ -17,7 +16,7 @@ def visitNode():
             neighbour = connections[x,1]
         else:
             neighbour = connections[x,0]
-        edge = connections[x,2]
+        edge = int(connections[x,2])
         idNeighbour = ord(neighbour) - ord('A')
         newDistance = edge + distances[idStartingPoint]
         if (isVisited[idNeighbour]==False) and (newDistance < distances[idNeighbour]):
@@ -33,7 +32,6 @@ def main():
     isVisited = [False]*nbNodes
     
     connections = np.array([tuple(input('Node1, Node2, Distance:   ').split(',')) for _ in range(nbConnections)])
-    print(connections, connections.ndim)
 
     startingNode = input('Starting node (lettre maj.):   ')
     indexStartingNode = ord(startingNode) - ord('A')
@@ -44,6 +42,6 @@ def main():
     
     for x in range(len(distances)):
         node = chr(x + ord('A'))
-        print(startingNode, 'to', node, ':' x)
+        print(startingNode, 'to', node, ':' ,x)
 
 main()
