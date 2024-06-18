@@ -1,0 +1,7 @@
+﻿Node1,Node2,Edge
+A,B,4
+A,C,3
+C,B,2
+B,D,6
+D,E,1
+B,E,5
