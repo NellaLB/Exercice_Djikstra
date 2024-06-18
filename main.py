@@ -13,7 +13,8 @@ def visitNode():
 
     for idHomeNode in range(len(distances)):
         if distancesNotVisited[idHomeNode] == min(distancesNotVisited):
-            homeNode = chr(idHomeNode + ord('A'))   ######### Problème : homeNode toujours startingNode
+            homeNode = chr(idHomeNode + ord('A'))
+            break
 
     #   2. Access its neighbours nodes:
     listNeighboursId = list(zip(*np.where(connections == homeNode)))
@@ -48,6 +49,6 @@ def main():
     
     for x in range(len(distances)):
         node = chr(x + ord('A'))
-        print(startingNode, 'to', node, ':' ,x)
+        print(startingNode, 'to', node, ':' ,distances[x])
 
 main()
