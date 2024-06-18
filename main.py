@@ -11,11 +11,12 @@ def visitNode():
         if isVisited[indx] == False:
             distancesNotVisited[indx] = distances[indx]
 
-    for idStartingPoint in range(len(distances)):
-        if distancesNotVisited[idStartingPoint] == min(distancesNotVisited):
-            startingNode = chr(idStartingPoint + ord('A'))
+    for idHomeNode in range(len(distances)):
+        if distancesNotVisited[idHomeNode] == min(distancesNotVisited):
+            homeNode = chr(idHomeNode + ord('A'))   ######### Problème : homeNode toujours startingNode
+
     #   2. Access its neighbours nodes:
-    listNeighboursId = list(zip(*np.where(connections == startingNode)))
+    listNeighboursId = list(zip(*np.where(connections == homeNode)))
     for (x,y) in listNeighboursId:
         if y == 0:
             neighbour = connections[x,1]
@@ -23,16 +24,16 @@ def visitNode():
             neighbour = connections[x,0]
         edge = int(connections[x,2])
         idNeighbour = ord(neighbour) - ord('A')
-        if  edge + distances[idStartingPoint] < distances[idNeighbour]:
-            distances[idNeighbour] = edge + distances[idStartingPoint]
-    isVisited[idStartingPoint] = True
-    return distances
+        if  edge + distances[idHomeNode] < distances[idNeighbour]:
+            distances[idNeighbour] = edge + distances[idHomeNode]
+    isVisited[idHomeNode] = True
+    return distances , isVisited
 
 
 def main():
     nbNodes , nbConnections = map(int, input('Nombre de nodes, nombres de connections:   ').split(','))
     print('Les nodes sont notés avec des lettres majuscules.')
-    global distances , isVisited, connections
+    global connections, distances, isVisited
     distances = [np.inf]*nbNodes
     isVisited = [False]*nbNodes
     
@@ -43,8 +44,7 @@ def main():
     distances[indexStartingNode] = 0
 
     while np.inf in distances:
-        distances = visitNode()
-        print(distances)
+        distances , isVisited = visitNode()
     
     for x in range(len(distances)):
         node = chr(x + ord('A'))
