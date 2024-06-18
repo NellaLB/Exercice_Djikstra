@@ -21,6 +21,7 @@ def visitNode():
         newDistance = edge + distances[idStartingPoint]
         if (isVisited[idNeighbour]==False) and (newDistance < distances[idNeighbour]):
             distances[idNeighbour] = newDistance
+    isVisited[idStartingPoint] = True
     return distances
 
 
@@ -39,6 +40,7 @@ def main():
 
     while np.inf in distances:
         visitNode()
+        print(distances)
     
     for x in range(len(distances)):
         node = chr(x + ord('A'))
