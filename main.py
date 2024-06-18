@@ -38,8 +38,7 @@ def main():
     distances[indexStartingNode] = 0
 
     while np.inf in distances:
-        visitNode()
-        print(distances)
+        distances = visitNode()
     
     for x in range(len(distances)):
         node = chr(x + ord('A'))
