@@ -31,30 +31,33 @@ def visitNode():
 
 
 def main():
-    fileName = input('Insérer le nom d\'un fichier CSV:  ')
-    fileCSV = pd.read_csv(fileName)
-    fileCSV = pd.DataFrame(fileCSV)
+    try:
+        fileName = input('Insérer le nom d\'un fichier CSV:  ')
+        fileCSV = pd.read_csv(fileName)
+        fileCSV = pd.DataFrame(fileCSV)
 
-    #Data cleaning
-    fileCSV.drop_duplicates(inplace=True)
-    fileCSV.dropna(inplace=True)
+        #Data cleaning
+        fileCSV.drop_duplicates(subset=['Node1','Node2'], inplace=True)
+        fileCSV.dropna(inplace=True)
 
-    global connections, distances, isVisited, nbNodes
-    nbNodes = len(set(fileCSV.Node1) | set(fileCSV.Node2))
-    distances = [np.inf]*nbNodes
-    isVisited = [False]*nbNodes
-    
-    connections = fileCSV.to_numpy()
+        global connections, distances, isVisited, nbNodes
+        nbNodes = len(set(fileCSV.Node1) | set(fileCSV.Node2))
+        distances = [np.inf]*nbNodes
+        isVisited = [False]*nbNodes
+        
+        connections = fileCSV.to_numpy()
 
-    startingNode = input('Starting node (lettre maj.):   ')
-    indexStartingNode = ord(startingNode) - ord('A')
-    distances[indexStartingNode] = 0
+        startingNode = input('Starting node from A to ' + chr(nbNodes + ord('A') - 1) + ':   ')
+        indexStartingNode = ord(startingNode) - ord('A')
+        distances[indexStartingNode] = 0
 
-    while (np.inf in distances) or (False in isVisited):
-        distances , isVisited = visitNode()
+        while (np.inf in distances) or (False in isVisited):
+            distances , isVisited = visitNode()
 
-    for x in range(len(distances)):
-        node = chr(x + ord('A'))
-        print(startingNode, 'to', node, ':' ,distances[x])
-
+        for x in range(len(distances)):
+            node = chr(x + ord('A'))
+            print(startingNode, 'to', node, ':' ,distances[x])
+    except:
+        print('On dirait qu\'il y a eu une erreur. Réessayer.')
+        main()
 main()
