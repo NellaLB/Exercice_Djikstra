@@ -13,7 +13,6 @@ def visitNode():
     for idHomeNode in range(nbNodes):
         if distancesNotVisited[idHomeNode] == min(distancesNotVisited):
             homeNode = chr(idHomeNode + ord('A'))
-            print('Homenode: ', homeNode)
             break
 
     #   2. Access its neighbours nodes:
@@ -24,11 +23,9 @@ def visitNode():
         else:
             neighbour = connections[x,0]
         edge = int(connections[x,2])
-        print('Voisins du noeud: ', neighbour)
         idNeighbour = ord(neighbour) - ord('A')
         if  edge + distances[idHomeNode] < distances[idNeighbour]:
             distances[idNeighbour] = edge + distances[idHomeNode]
-            print('Distance mise à jour.')
     isVisited[idHomeNode] = True
     return distances , isVisited
 
@@ -55,7 +52,7 @@ def main():
 
     while (np.inf in distances) or (False in isVisited):
         distances , isVisited = visitNode()
-    print(isVisited, sum(isVisited))
+
     for x in range(len(distances)):
         node = chr(x + ord('A'))
         print(startingNode, 'to', node, ':' ,distances[x])
