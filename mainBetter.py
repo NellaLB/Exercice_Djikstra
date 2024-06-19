@@ -4,6 +4,7 @@ import pandas as pd
 #Djikstra Algo
 def visitNode():
     #   1. Node with lowest distance as starting point:
+    global distancesNotVisited
     distancesNotVisited = [np.inf]*(nbNodes)
     for indx in range(nbNodes):
         if isVisited[indx] == False:
@@ -53,11 +54,17 @@ def main():
         #Visites des nodes (djikstra algo)
         while (np.inf in distances) or (False in isVisited):
             distances , isVisited = visitNode()
+            if min(distancesNotVisited) == np.inf:
+                break
 
         #Affichage des valeurs
         for x in range(nbNodes):
             node = chr(x + ord('A'))
-            print(startingNode, 'to', node, ':' ,distances[x])
+            if distances[x] != np.inf:
+                print(startingNode, 'to', node, ':' ,distances[x])
+            else:
+                print(startingNode, 'to', node, ': Not accessible')
+
     except:
         print('On dirait qu\'il y a eu une erreur. Réessayer.')
         main()
