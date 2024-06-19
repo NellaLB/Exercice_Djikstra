@@ -1,4 +1,3 @@
-import networkx as nx
 import numpy as np
 import pandas as pd
 
@@ -32,6 +31,7 @@ def visitNode():
 
 def main():
     try:
+        #Import CSV file
         fileName = input('Insérer le nom d\'un fichier CSV:  ')
         fileCSV = pd.read_csv(fileName)
         fileCSV = pd.DataFrame(fileCSV)
@@ -51,11 +51,12 @@ def main():
         indexStartingNode = ord(startingNode) - ord('A')
         distances[indexStartingNode] = 0
 
+        #Visites des nodes (djikstra algo)
         while (np.inf in distances) or (False in isVisited):
             distances , isVisited = visitNode()
 
         #Affichage des valeurs
-        for x in range(len(distances)):
+        for x in range(nbNodes):
             node = chr(x + ord('A'))
             print(startingNode, 'to', node, ':' ,distances[x])
     except:
