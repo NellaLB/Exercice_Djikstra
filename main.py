@@ -6,12 +6,12 @@ import matplotlib.pyplot as plt
 #Djikstra Algo
 def visitNode():
     #   1. Node with lowest distance as starting point:
-    distancesNotVisited=[np.inf]*(len(distances))
-    for indx in range(len(distances)):
+    distancesNotVisited = [np.inf]*(nbNodes)
+    for indx in range(nbNodes):
         if isVisited[indx] == False:
             distancesNotVisited[indx] = distances[indx]
 
-    for idHomeNode in range(len(distances)):
+    for idHomeNode in range(nbNodes):
         if distancesNotVisited[idHomeNode] == min(distancesNotVisited):
             homeNode = chr(idHomeNode + ord('A'))
             break
@@ -32,13 +32,20 @@ def visitNode():
 
 
 def main():
-    nbNodes , nbConnections = map(int, input('Nombre de nodes, nombres de connections:   ').split(','))
-    print('Les nodes sont notés avec des lettres majuscules.')
-    global connections, distances, isVisited
+    fileName = input('Insérer le nom d\'un fichier CSV:  ')
+    fileCSV = pd.read_csv(fileName)
+    fileCSV = pd.DataFrame(fileCSV)
+
+    #Data cleaning
+    fileCSV.drop_duplicates(inplace=True)
+    fileCSV.dropna(inplace=True)
+
+    global connections, distances, isVisited, nbNodes
+    nbNodes = len(set(fileCSV.Node1) | set(fileCSV.Node2))
     distances = [np.inf]*nbNodes
     isVisited = [False]*nbNodes
     
-    connections = np.array([tuple(input('Node1, Node2, Distance:   ').split(',')) for _ in range(nbConnections)])
+    connections = fileCSV.to_numpy()
 
     startingNode = input('Starting node (lettre maj.):   ')
     indexStartingNode = ord(startingNode) - ord('A')
