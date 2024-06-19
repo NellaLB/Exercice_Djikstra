@@ -35,8 +35,9 @@ def main():
     fileName = input('Insérer le nom d\'un fichier CSV:  ')
     fileCSV = pd.read_csv(fileName)
     fileCSV = pd.DataFrame(fileCSV)
+    fileCSV.drop_duplicates(inplace=True)
 
-    nbNodes = len(fileCSV.unique('Node1','Node2'))
+    nbNodes = len(set(fileCSV.Node1) | set(fileCSV.Node2))
 
     global connections, distances, isVisited
     distances = [np.inf]*nbNodes
