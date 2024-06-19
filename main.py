@@ -54,6 +54,7 @@ def main():
         while (np.inf in distances) or (False in isVisited):
             distances , isVisited = visitNode()
 
+        #Affichage des valeurs
         for x in range(len(distances)):
             node = chr(x + ord('A'))
             print(startingNode, 'to', node, ':' ,distances[x])
